@@ -4,7 +4,8 @@ var app = new Vue({
         product: 'Socks',
         image: './images/vmSocks-green-onWhite.jpg',
         home: './index.html',
-        inventory: 8,
+        inventory: 0,
+        inStock: true,
         onSale: false,
         details: ["80% cotton","20% polyester","male socks"],
         variants: [
@@ -20,7 +21,8 @@ var app = new Vue({
         }
         ],
         sizes: ["S", "M", "L", "XL"],
-        cart:0
+        cart:0,
+        textStyle: { 'text-decoration': 'line-through' }
         
     },
     methods: {
@@ -32,6 +34,15 @@ var app = new Vue({
           if (this.cart < 0) { 
             this.cart = 0;
           }
+        },
+        tstStock: function () {
+          if (this.inStock) {
+            this.textStyle['text-decoration'] = 'line-through'
+          }
+          else {
+            this.textStyle['text-decoration'] = ''
+          }
+          return this.textStyle;
         },
         updateProduct: function (variantImage) {
           this.image=variantImage
