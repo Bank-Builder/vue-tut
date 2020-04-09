@@ -1,23 +1,26 @@
 var app = new Vue({
     el: '#app',
     data: {
+        brand: "Vue Woolies",
         product: 'Socks',
-        image: './images/vmSocks-green-onWhite.jpg',
+        selectedVariant: 0,
         home: './index.html',
         inventory: 0,
-        inStock: true,
         onSale: false,
         details: ["80% cotton","20% polyester","male socks"],
         variants: [
         {
           variantId: 2234,
           variantColor: "green",
-          variantImage: './images/vmSocks-green-onWhite.jpg'
+          variantImage: './images/vmSocks-green-onWhite.jpg',
+          variantQuantity: 10
         }, 
         {
           variantId: 2235,
           variantColor: "blue",
-          variantImage: './images/vmSocks-blue-onWhite.jpg'
+          variantImage: './images/vmSocks-blue-onWhite.jpg',
+          variantQuantity: 0
+          
         }
         ],
         sizes: ["S", "M", "L", "XL"],
@@ -44,8 +47,19 @@ var app = new Vue({
           }
           return this.textStyle;
         },
-        updateProduct: function (variantImage) {
-          this.image=variantImage
+        updateProduct: function (index) {
+          this.selectedVariant = index
         }
+    },
+    computed: {
+      title() {
+        return this.brand + ' ' + this.product
+      },
+      image() {
+        return this.variants[this.selectedVariant].variantImage
+      },
+      inStock () {
+        return this.variants[this.selectedVariant].variantQuantity
+      }
     }
 })
